@@ -1,0 +1,10 @@
+[
+  { "id": "vegan", "label": "純素", "desc": "無動物製品" },
+  { "id": "vegetarian", "label": "素食", "desc": "無肉類" },
+  { "id": "gluten-free", "label": "無麩質", "desc": "適合麩質敏感" },
+  { "id": "dairy-free", "label": "無奶", "desc": "無乳製品" },
+  { "id": "nut-free", "label": "無堅果", "desc": "適合堅果過敏" },
+  { "id": "organic", "label": "有機", "desc": "有機食材" },
+  { "id": "low-sugar", "label": "低糖", "desc": "少糖選項" },
+  { "id": "high-protein", "label": "高蛋白", "desc": "高蛋白質" }
+]

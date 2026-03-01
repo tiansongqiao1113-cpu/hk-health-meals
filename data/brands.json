@@ -1,0 +1,11 @@
+[
+  { "id": "treehouse", "name": "Treehouse", "storeCount": 4, "website": "https://www.treehouse.eco/", "foodpanda": "https://www.foodpanda.hk/chain/cn4nh/treehouse", "products": ["自選碗", "捲餅", "漢堡", "純素甜品"], "dietary": ["vegan", "gluten-free", "dairy-free"] },
+  { "id": "mother-pearl", "name": "Mother Pearl", "storeCount": 3, "website": "https://motherpearl.com.hk/", "foodpanda": "https://www.foodpanda.hk/zh/city/hong-kong", "products": ["純素珍珠奶茶", "植物奶飲品"], "dietary": ["vegan", "dairy-free"] },
+  { "id": "nuttea", "name": "Nuttea", "storeCount": 4, "website": "https://nuttea.net/", "foodpanda": "https://www.foodpanda.hk/zh/city/hong-kong", "products": ["五堅果奶蓋茶", "純素飲品"], "dietary": ["vegan", "dairy-free"], "note": "含堅果，堅果過敏者請注意" },
+  { "id": "the-cakery", "name": "The Cakery / Maya Bakery", "storeCount": 4, "website": "https://www.thecakery.com/", "foodpanda": "https://www.foodpanda.hk/zh/city/hong-kong", "products": ["純素蛋糕", "純素蛋撻", "菠蘿包", "咖啡"], "dietary": ["vegan", "dairy-free", "gluten-free"] },
+  { "id": "18-grams", "name": "18 Grams", "storeCount": 3, "website": "https://www.18grams.com/", "foodpanda": "https://www.foodpanda.hk/zh/city/hong-kong", "products": ["素食輕食", "燕麥奶咖啡", "豆腐牛油果貝果", "全日早餐"], "dietary": ["vegetarian", "dairy-free"] },
+  { "id": "years", "name": "Years Group", "storeCount": 3, "website": "https://www.yearshk.com/", "foodpanda": "https://www.foodpanda.hk/zh/city/hong-kong", "products": ["純素漢堡", "壽司", "日式便當", "川味意粉"], "dietary": ["vegan", "dairy-free"] },
+  { "id": "mana", "name": "MANA!", "storeCount": 2, "website": "https://www.mana.hk/", "foodpanda": "https://www.foodpanda.hk/zh/city/hong-kong", "products": ["自選沙律", "純素漢堡", "植物奶"], "dietary": ["vegan", "dairy-free"] },
+  { "id": "poke-go", "name": "Poké Go", "storeCount": 2, "website": null, "foodpanda": "https://www.foodpanda.hk/zh/city/hong-kong", "products": ["夏威夷魚生飯", "自選碗", "有機食材"], "dietary": ["organic", "high-protein"] },
+  { "id": "ahimsabuffet", "name": "無肉食", "storeCount": 3, "website": "https://ahimsabuffet.com/", "foodpanda": "https://www.foodpanda.hk/zh/city/hong-kong", "products": ["素食自助餐", "熱食", "點心", "甜品"], "dietary": ["vegetarian"] }
+]

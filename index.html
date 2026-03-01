@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>香港健康餐 | 地區健康餐收錄</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">🥗 香港健康餐</h1>
+      <p class="tagline">收錄香港各區健康餐商家，輕鬆選擇適合你的健康飲食</p>
+      <p class="dietary-intro">支援純素、無麩質、無奶等特殊飲食需求，過敏或飲食限制者可按標籤篩選</p>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <!-- 品牌牆：門店數 ≥ 3 -->
+      <section id="brand-wall" class="brand-wall">
+        <h2 class="section-title">品牌牆</h2>
+        <p class="section-desc">門店數 3 間以上的健康餐品牌</p>
+        <div id="brand-grid" class="brand-grid"></div>
+      </section>
+
+      <section class="filters">
+        <div class="filter-group filter-group-wide">
+          <label>特殊飲食需求</label>
+          <div id="dietary-chips" class="dietary-chips"></div>
+        </div>
+        <div class="filter-group">
+          <label for="brand-filter">選擇品牌</label>
+          <select id="brand-filter">
+            <option value="all">全部品牌</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="district-filter">選擇地區</label>
+          <select id="district-filter">
+            <option value="all">全部地區</option>
+            <option value="中環">中環</option>
+            <option value="金鐘">金鐘</option>
+            <option value="灣仔">灣仔</option>
+            <option value="銅鑼灣">銅鑼灣</option>
+            <option value="上環">上環</option>
+            <option value="西營盤">西營盤</option>
+            <option value="尖沙咀">尖沙咀</option>
+            <option value="旺角">旺角</option>
+            <option value="佐敦">佐敦</option>
+            <option value="深水埗">深水埗</option>
+            <option value="北角">北角</option>
+            <option value="荔枝角">荔枝角</option>
+            <option value="九龍">九龍</option>
+            <option value="鰂魚涌">鰂魚涌</option>
+            <option value="九龍灣">九龍灣</option>
+            <option value="黃竹坑">黃竹坑</option>
+            <option value="機場">機場</option>
+            <option value="油麻地">油麻地</option>
+            <option value="觀塘">觀塘</option>
+            <option value="將軍澳">將軍澳</option>
+            <option value="沙田">沙田</option>
+            <option value="荃灣">荃灣</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="sort-by">排序</label>
+          <select id="sort-by">
+            <option value="name" selected>按名稱</option>
+            <option value="district">按地區</option>
+            <option value="brand">按品牌</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="search-input">搜尋商家</label>
+          <input type="text" id="search-input" placeholder="輸入商家名稱或關鍵字...">
+        </div>
+        <div class="filter-actions">
+          <button id="reset-filters" class="reset-filters">清除篩選</button>
+        </div>
+      </section>
+
+      <div id="restaurant-count" class="restaurant-count"></div>
+
+      <section id="store-list" class="store-list">
+        <h2 class="section-title">門店一覽</h2>
+        <div id="restaurant-list" class="restaurant-grid"><!-- 商家卡片由 JS 動態生成 --></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>香港健康餐收錄 · 方便選擇 · 健康生活</p>
+    </div>
+  </footer>
+
+  <!-- QR Code Modal -->
+  <div id="qr-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <h3 id="qr-modal-title">掃碼下單</h3>
+      <div id="qr-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

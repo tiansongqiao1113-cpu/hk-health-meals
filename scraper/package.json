@@ -1,0 +1,14 @@
+{
+  "name": "hk-health-meals-scraper",
+  "version": "1.0.0",
+  "description": "爬取 Foodpanda / OpenRice 健康餐餐廳數據",
+  "type": "module",
+  "scripts": {
+    "scrape:foodpanda": "node scrape-foodpanda.js",
+    "scrape:openrice": "node scrape-openrice.js",
+    "merge": "node merge-to-data.js"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}

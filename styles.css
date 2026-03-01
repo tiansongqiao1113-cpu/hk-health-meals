@@ -1,0 +1,647 @@
+/* ===== 設計系統 ===== */
+:root {
+  --color-bg: #f8faf8;
+  --color-surface: #ffffff;
+  --color-primary: #2d6a4f;
+  --color-primary-light: #40916c;
+  --color-primary-dark: #1b4332;
+  --color-accent: #95d5b2;
+  --color-text: #1a1a1a;
+  --color-text-muted: #5c6b6b;
+  --color-border: #e2e8e6;
+  --color-foodpanda: #d70f64;
+  --color-keeta: #00b894;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --font: 'Noto Sans HK', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== Header ===== */
+.header {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%);
+  color: white;
+  padding: 48px 0;
+  text-align: center;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-size: 1rem;
+  opacity: 0.95;
+  font-weight: 400;
+}
+
+.dietary-intro {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 8px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== 品牌牆 ===== */
+.brand-wall {
+  padding: 40px 0 32px;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--color-primary-dark);
+}
+
+.section-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+}
+
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.brand-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.brand-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.brand-card-inner {
+  padding: 20px;
+}
+
+.brand-card .brand-dietary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.brand-card .dietary-tag {
+  font-size: 0.65rem;
+  padding: 2px 6px;
+}
+
+.brand-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--color-primary-dark);
+}
+
+.brand-store-count {
+  font-size: 0.8rem;
+  color: var(--color-primary-light);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.brand-products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.brand-product-tag {
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  background: var(--color-bg);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+}
+
+.brand-actions {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.brand-link {
+  margin-right: 8px;
+}
+
+/* ===== 門店一覽 ===== */
+.store-list {
+  padding-bottom: 24px;
+}
+
+.store-list .section-title {
+  margin-bottom: 20px;
+}
+
+/* ===== Filters ===== */
+.filters {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 32px 0 24px;
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 1rem;
+  min-width: 200px;
+  background: var(--color-surface);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+}
+
+.filter-actions {
+  display: flex;
+  align-items: center;
+}
+
+.reset-filters {
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.reset-filters:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+}
+
+.restaurant-count {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+}
+
+/* ===== Restaurant Grid ===== */
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  padding-bottom: 64px;
+}
+
+.restaurant-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--color-border);
+}
+
+.restaurant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: var(--color-bg);
+
+.card-dietary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.dietary-tag {
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  background: rgba(45, 106, 79, 0.12);
+  color: var(--color-primary);
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.dietary-tag.warning {
+  background: rgba(255, 152, 0, 0.15);
+  color: #e65100;
+}
+
+.filter-group-wide {
+  width: 100%;
+  max-width: 100%;
+}
+
+.dietary-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.dietary-chip {
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-family: var(--font);
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  transition: all 0.2s;
+}
+
+.dietary-chip:hover {
+  border-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.dietary-chip.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(180deg, rgba(45, 106, 79, 0.04) 0%, transparent 100%);
+}
+
+.card-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--color-primary-dark);
+}
+
+.card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.card-brand {
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  background: rgba(45, 106, 79, 0.15);
+  color: var(--color-primary);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.card-district {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  background: var(--color-accent);
+  color: var(--color-primary-dark);
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.card-body {
+  padding: 20px 24px;
+}
+
+.card-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.card-info-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.card-info-text {
+  color: var(--color-text);
+}
+
+.card-info-label {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+
+.card-products {
+  margin-bottom: 20px;
+}
+
+.card-products-title {
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.card-products-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.product-tag {
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  background: var(--color-bg);
+  border-radius: 8px;
+  color: var(--color-text-muted);
+}
+
+/* ===== Order Links ===== */
+.card-order-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.order-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.order-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.order-btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.order-btn-foodpanda {
+  background: var(--color-foodpanda);
+  color: white;
+}
+
+.order-btn-keeta {
+  background: var(--color-keeta);
+  color: white;
+}
+
+.order-btn-website {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.order-btn-qr {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 1px solid var(--color-accent);
+}
+
+/* ===== Footer ===== */
+.footer {
+  padding: 32px 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ===== Modal ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--color-text);
+}
+
+#qr-modal-title {
+  margin-bottom: 20px;
+  font-size: 1.25rem;
+}
+
+.qr-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.qr-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.qr-option:hover {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.qr-option canvas {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.qr-option-info {
+  flex: 1;
+}
+
+.qr-option-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.qr-option-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  color: var(--color-text-muted);
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .header {
+    padding: 32px 0;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .dietary-intro {
+    font-size: 0.8rem;
+    padding: 0 16px;
+  }
+
+  .card-image {
+    height: 140px;
+  }
+
+  .brand-wall {
+    padding: 24px 0 20px;
+  }
+
+  .brand-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .brand-card-inner {
+    padding: 16px;
+  }
+
+  .brand-name {
+    font-size: 1rem;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .filter-group select,
+  .filter-group input {
+    min-width: 100%;
+  }
+
+  .restaurant-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-order-links {
+    flex-direction: column;
+  }
+
+  .order-btn {
+    justify-content: center;
+  }
+}

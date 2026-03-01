@@ -1,0 +1,12 @@
+{
+  "name": "hk-health-meals",
+  "version": "1.0.0",
+  "description": "香港健康餐收錄",
+  "scripts": {
+    "build": "python3 scripts/build-data.py",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": ["healthy", "food", "hong-kong"],
+  "author": "",
+  "license": "ISC"
+}
