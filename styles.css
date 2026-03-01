@@ -1,22 +1,40 @@
-/* ===== 設計系統 ===== */
+/* ===== 現代化設計系統 ===== */
 :root {
-  --color-bg: #f8faf8;
+  /* 基礎色板 (Emerald) */
+  --color-primary-50: #ecfdf5;
+  --color-primary-100: #d1fae5;
+  --color-primary-200: #a7f3d0;
+  --color-primary-300: #6ee7b7;
+  --color-primary-400: #34d399;
+  --color-primary-500: #10b981;
+  --color-primary-600: #059669;
+  --color-primary-700: #047857;
+  --color-primary-800: #065f46;
+  --color-primary-900: #064e3b;
+
+  /* 功能色 */
+  --color-bg: #f3f4f6; /* Gray 100 */
   --color-surface: #ffffff;
-  --color-primary: #2d6a4f;
-  --color-primary-light: #40916c;
-  --color-primary-dark: #1b4332;
-  --color-accent: #95d5b2;
-  --color-text: #1a1a1a;
-  --color-text-muted: #5c6b6b;
-  --color-border: #e2e8e6;
+  --color-text-main: #111827; /* Gray 900 */
+  --color-text-secondary: #4b5563; /* Gray 600 */
+  --color-text-light: #9ca3af; /* Gray 400 */
+  --color-border: #e5e7eb; /* Gray 200 */
+
+  /* 品牌色 */
   --color-foodpanda: #d70f64;
-  --color-keeta: #00b894;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
-  --radius: 12px;
-  --radius-lg: 16px;
-  --font: 'Noto Sans HK', -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-keeta: #fbbf24; /* Keeta 黃 */
+  --color-keeta-text: #78350f;
+
+  /* 效果 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  --font-sans: 'Noto Sans HK', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -26,464 +44,532 @@
 }
 
 body {
-  font-family: var(--font);
-  background: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
-  min-height: 100vh;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 1.5rem;
 }
 
-/* ===== Header ===== */
+/* ===== Header (Hero 區域) ===== */
 .header {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%);
-  color: white;
-  padding: 48px 0;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 4rem 0 3rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 裝飾背景 */
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: radial-gradient(circle at 50% 0%, var(--color-primary-50) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.header .container {
+  position: relative;
+  z-index: 1;
 }
 
 .logo {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-primary-800);
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
+  display: inline-block;
+  background: linear-gradient(135deg, var(--color-primary-700), var(--color-primary-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .tagline {
-  font-size: 1rem;
-  opacity: 0.95;
-  font-weight: 400;
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
 }
 
 .dietary-intro {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin-top: 8px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* ===== Main Layout ===== */
+.main {
+  padding: 2rem 0 4rem;
+}
+
+/* ===== Section Styles ===== */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 1.5rem;
+  background-color: var(--color-primary-500);
+  border-radius: 2px;
+}
+
+.section-desc {
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
 }
 
 /* ===== 品牌牆 ===== */
 .brand-wall {
-  padding: 40px 0 32px;
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: 32px;
-}
-
-.section-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--color-primary-dark);
-}
-
-.section-desc {
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-  margin-bottom: 24px;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px dashed var(--color-border);
 }
 
 .brand-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.25rem;
 }
 
 .brand-card {
-  display: block;
   text-decoration: none;
-  color: inherit;
   background: var(--color-surface);
-  border-radius: var(--radius);
   border: 1px solid var(--color-border);
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .brand-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
+  border-color: var(--color-primary-300);
   box-shadow: var(--shadow-md);
 }
 
-.brand-card-inner {
-  padding: 20px;
-}
-
-.brand-card .brand-dietary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-
-.brand-card .dietary-tag {
-  font-size: 0.65rem;
-  padding: 2px 6px;
-}
-
 .brand-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: var(--color-primary-dark);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.25rem;
 }
 
 .brand-store-count {
-  font-size: 0.8rem;
-  color: var(--color-primary-light);
+  font-size: 0.875rem;
+  color: var(--color-primary-600);
   font-weight: 500;
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  background-color: var(--color-primary-50);
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
 }
 
 .brand-products {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
+  gap: 0.375rem;
+  margin-top: auto; /* Push to bottom */
+  margin-bottom: 0.75rem;
 }
 
 .brand-product-tag {
-  font-size: 0.7rem;
-  padding: 4px 8px;
-  background: var(--color-bg);
-  border-radius: 6px;
-  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.brand-dietary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .brand-actions {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
 }
 
-.brand-link {
-  margin-right: 8px;
-}
-
-/* ===== 門店一覽 ===== */
-.store-list {
-  padding-bottom: 24px;
-}
-
-.store-list .section-title {
-  margin-bottom: 20px;
-}
-
-/* ===== Filters ===== */
+/* ===== Filters Area ===== */
 .filters {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
   display: flex;
-  gap: 24px;
   flex-wrap: wrap;
-  padding: 32px 0 24px;
+  gap: 1.5rem;
   align-items: flex-end;
 }
 
 .filter-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group-wide {
+  flex-basis: 100%;
 }
 
 .filter-group label {
   font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
+  font-weight: 600;
+  color: var(--color-text-main);
 }
 
 .filter-group select,
 .filter-group input {
-  padding: 12px 16px;
+  width: 100%;
+  padding: 0.625rem 1rem;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  font-family: var(--font);
-  font-size: 1rem;
-  min-width: 200px;
-  background: var(--color-surface);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  background-color: var(--color-bg);
+  transition: border-color 0.15s ease;
 }
 
 .filter-group select:focus,
 .filter-group input:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
-}
-
-.filter-actions {
-  display: flex;
-  align-items: center;
-}
-
-.reset-filters {
-  padding: 10px 16px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-  cursor: pointer;
-  font-family: var(--font);
-  font-size: 0.95rem;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-}
-
-.reset-filters:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
-}
-
-.restaurant-count {
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-  margin-bottom: 24px;
-}
-
-/* ===== Restaurant Grid ===== */
-.restaurant-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 24px;
-  padding-bottom: 64px;
-}
-
-.restaurant-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: 1px solid var(--color-border);
-}
-
-.restaurant-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.card-image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  background: var(--color-bg);
-
-.card-dietary {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.dietary-tag {
-  font-size: 0.7rem;
-  padding: 4px 10px;
-  background: rgba(45, 106, 79, 0.12);
-  color: var(--color-primary);
-  border-radius: 20px;
-  font-weight: 500;
-}
-
-.dietary-tag.warning {
-  background: rgba(255, 152, 0, 0.15);
-  color: #e65100;
-}
-
-.filter-group-wide {
-  width: 100%;
-  max-width: 100%;
+  border-color: var(--color-primary-500);
+  background-color: var(--color-surface);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
 }
 
 .dietary-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 0.5rem;
 }
 
 .dietary-chip {
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-family: var(--font);
+  background-color: var(--color-bg);
+  border: 1px solid transparent;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
   cursor: pointer;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text-muted);
   transition: all 0.2s;
+  font-weight: 500;
 }
 
 .dietary-chip:hover {
-  border-color: var(--color-primary-light);
-  color: var(--color-primary);
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
 }
 
 .dietary-chip.active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--color-primary-500);
   color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-actions {
+  display: flex;
+  align-items: center;
+  padding-bottom: 2px;
+}
+
+.reset-filters {
+  background-color: white;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reset-filters:hover {
+  border-color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+}
+
+/* ===== Restaurant List ===== */
+.restaurant-count {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--color-border);
+}
+
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.restaurant-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
 }
 
 .restaurant-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary-200);
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background-color: var(--color-bg);
 }
 
 .card-header {
-  padding: 20px 24px;
+  padding: 1.25rem 1.5rem 1rem;
   border-bottom: 1px solid var(--color-border);
-  background: linear-gradient(180deg, rgba(45, 106, 79, 0.04) 0%, transparent 100%);
 }
 
 .card-name {
   font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: var(--color-primary-dark);
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
 }
 
 .card-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
+  gap: 0.5rem;
 }
 
 .card-brand {
-  font-size: 0.7rem;
-  padding: 4px 8px;
-  background: rgba(45, 106, 79, 0.15);
-  color: var(--color-primary);
-  border-radius: 6px;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+  border-radius: 0.25rem;
 }
 
 .card-district {
-  display: inline-block;
   font-size: 0.75rem;
-  padding: 4px 10px;
-  background: var(--color-accent);
-  color: var(--color-primary-dark);
-  border-radius: 20px;
-  font-weight: 500;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  background-color: var(--color-bg);
+  color: var(--color-text-secondary);
+  border-radius: 0.25rem;
 }
 
 .card-body {
-  padding: 20px 24px;
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-dietary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.dietary-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+}
+
+.dietary-tag.warning {
+  background-color: #fff7ed;
+  color: #c2410c;
 }
 
 .card-info {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 16px;
-  font-size: 0.9rem;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .card-info-icon {
-  font-size: 1.1rem;
-  flex-shrink: 0;
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 .card-info-text {
-  color: var(--color-text);
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
 }
 
 .card-info-label {
-  color: var(--color-text-muted);
-  font-size: 0.8rem;
-  margin-bottom: 2px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-light);
+  margin-bottom: 0.125rem;
+  font-weight: 600;
 }
 
 .card-products {
-  margin-bottom: 20px;
+  margin-top: auto;
+  margin-bottom: 1.5rem;
 }
 
 .card-products-title {
-  font-size: 0.8rem;
-  margin-bottom: 8px;
-  color: var(--color-text-muted);
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
 }
 
 .card-products-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .product-tag {
-  font-size: 0.8rem;
-  padding: 6px 12px;
-  background: var(--color-bg);
-  border-radius: 8px;
-  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  padding: 0.25rem 0.625rem;
+  background-color: var(--color-bg);
+  color: var(--color-text-secondary);
+  border-radius: 0.375rem;
 }
 
-/* ===== Order Links ===== */
 .card-order-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--color-border);
 }
 
 .order-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-family: var(--font);
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem;
+  border-radius: var(--radius-md);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: none;
+  transition: all 0.2s;
   cursor: pointer;
+  border: 1px solid transparent;
 }
 
 .order-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
-.order-btn-primary {
-  background: var(--color-primary);
-  color: white;
+.order-btn-website {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text-main);
+  grid-column: span 2;
+}
+
+.order-btn-website:hover {
+  background-color: var(--color-bg);
 }
 
 .order-btn-foodpanda {
-  background: var(--color-foodpanda);
+  background-color: var(--color-foodpanda);
   color: white;
 }
 
 .order-btn-keeta {
-  background: var(--color-keeta);
-  color: white;
-}
-
-.order-btn-website {
-  background: var(--color-surface);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-keeta);
+  color: var(--color-keeta-text);
 }
 
 .order-btn-qr {
-  background: var(--color-surface);
-  color: var(--color-primary);
-  border: 1px solid var(--color-accent);
+  background-color: var(--color-surface);
+  border-color: var(--color-primary-300);
+  color: var(--color-primary-700);
+  grid-column: span 2;
+}
+
+.order-btn-qr:hover {
+  background-color: var(--color-primary-50);
 }
 
 /* ===== Footer ===== */
 .footer {
-  padding: 32px 0;
-  text-align: center;
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
+  margin-top: 4rem;
+  padding: 3rem 0;
+  background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
 }
 
 /* ===== Modal ===== */
@@ -491,11 +577,12 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  padding: 1rem;
   align-items: center;
   justify-content: center;
-  padding: 24px;
 }
 
 .modal.active {
@@ -503,145 +590,115 @@ body {
 }
 
 .modal-content {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  padding: 32px;
-  max-width: 400px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
   width: 100%;
+  max-width: 480px;
   position: relative;
   box-shadow: var(--shadow-lg);
+  animation: modal-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .modal-close {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
   border: none;
+  background-color: var(--color-bg);
+  color: var(--color-text-secondary);
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  color: var(--color-text-muted);
-  line-height: 1;
+  transition: all 0.2s;
 }
 
 .modal-close:hover {
-  color: var(--color-text);
+  background-color: var(--color-border);
+  color: var(--color-text-main);
 }
 
 #qr-modal-title {
-  margin-bottom: 20px;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-main);
+  padding-right: 2rem;
 }
 
 .qr-options {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .qr-option {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px;
-  background: var(--color-bg);
-  border-radius: var(--radius);
+  gap: 1.5rem;
+  padding: 1.25rem;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  transition: all 0.2s;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
 .qr-option:hover {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background-color: white;
+  border-color: var(--color-primary-300);
+  box-shadow: var(--shadow-md);
 }
 
 .qr-option canvas {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-}
-
-.qr-option-info {
-  flex: 1;
+  border-radius: var(--radius-sm);
+  background: white;
+  padding: 0.5rem;
 }
 
 .qr-option-label {
+  font-size: 1.125rem;
   font-weight: 600;
-  margin-bottom: 4px;
+  color: var(--color-text-main);
+  margin-bottom: 0.25rem;
 }
 
 .qr-option-desc {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-}
-
-/* ===== Empty State ===== */
-.empty-state {
-  text-align: center;
-  padding: 64px 24px;
-  color: var(--color-text-muted);
-}
-
-.empty-state-icon {
-  font-size: 4rem;
-  margin-bottom: 16px;
-  opacity: 0.5;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .header {
-    padding: 32px 0;
+    padding: 3rem 0 2rem;
   }
-
+  
   .logo {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
-
-  .dietary-intro {
-    font-size: 0.8rem;
-    padding: 0 16px;
-  }
-
-  .card-image {
-    height: 140px;
-  }
-
-  .brand-wall {
-    padding: 24px 0 20px;
-  }
-
-  .brand-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .brand-card-inner {
-    padding: 16px;
-  }
-
-  .brand-name {
-    font-size: 1rem;
-  }
-
+  
   .filters {
-    flex-direction: column;
+    padding: 1.25rem;
+    gap: 1rem;
   }
-
-  .filter-group select,
-  .filter-group input {
-    min-width: 100%;
-  }
-
+  
   .restaurant-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
-
-  .card-order-links {
-    flex-direction: column;
-  }
-
-  .order-btn {
-    justify-content: center;
+  
+  .card-image {
+    height: 180px;
   }
 }
