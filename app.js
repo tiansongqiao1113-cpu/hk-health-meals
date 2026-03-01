@@ -17,8 +17,9 @@ const modalClose = document.getElementById('modal-close');
 const sortBy = document.getElementById('sort-by');
 const resetFiltersBtn = document.getElementById('reset-filters');
 
-// 品牌牆：只顯示門店數 ≥ 3 的品牌
-const BRANDS_FOR_WALL = typeof BRANDS !== 'undefined' ? BRANDS.filter((b) => b.storeCount >= 3) : [];
+// 全局數據（可能從本地加載，也可能從 Google Sheets 覆蓋）
+let globalStores = typeof STORES !== 'undefined' ? STORES : [];
+let globalBrands = typeof BRANDS !== 'undefined' ? BRANDS : [];
 
 // 取得門店食物圖片 URL
 function getStoreImage(store) {
@@ -93,7 +94,7 @@ function renderStoreCard(store) {
   `;
 
   const brandBadge = store.brandId
-    ? `<span class="card-brand">${(BRANDS || []).find((b) => b.id === store.brandId)?.name || store.brandId}</span>`
+    ? `<span class="card-brand">${(globalBrands || []).find((b) => b.id === store.brandId)?.name || store.brandId}</span>`
     : '';
 
   card.innerHTML = `
@@ -184,7 +185,8 @@ qrModal.addEventListener('click', (e) => { if (e.target === qrModal) closeQrModa
 // 初始化品牌篩選選項
 function initBrandFilter() {
   if (!brandFilter) return;
-  const brands = typeof BRANDS !== 'undefined' ? BRANDS : [];
+  brandFilter.innerHTML = '<option value="all">全部品牌</option>';
+  const brands = globalBrands || [];
   brands.forEach((b) => {
     const opt = document.createElement('option');
     opt.value = b.id;
@@ -198,6 +200,7 @@ let activeDietaryFilter = null;
 function initDietaryChips() {
   const container = document.getElementById('dietary-chips');
   if (!container) return;
+  container.innerHTML = '';
   const options = typeof DIETARY_OPTIONS !== 'undefined' ? DIETARY_OPTIONS : [];
   options.forEach((opt) => {
     const chip = document.createElement('button');
@@ -221,9 +224,10 @@ function getFilteredStores() {
   const district = districtFilter.value;
   const dietary = activeDietaryFilter;
   const search = searchInput.value.trim().toLowerCase();
-  const stores = typeof STORES !== 'undefined' ? STORES : RESTAURANTS || [];
+  const sort = sortBy ? sortBy.value : 'name';
+  const stores = globalStores || [];
 
-  return stores.filter((s) => {
+  let filtered = stores.filter((s) => {
     const matchBrand = brand === 'all' || s.brandId === brand;
     const matchDistrict = district === 'all' || s.district === district;
     const matchDietary = !dietary || (s.dietary || []).includes(dietary);
@@ -234,35 +238,38 @@ function getFilteredStores() {
       (s.address || '').toLowerCase().includes(search) ||
       (s.products || []).some((p) => p.toLowerCase().includes(search)) ||
       (s.dietary || []).some((d) => getDietaryLabel(d).toLowerCase().includes(search)) ||
-      (s.brandId && (BRANDS || []).some((b) => b.id === s.brandId && (b.name || '').toLowerCase().includes(search)));
+      (s.brandId && (globalBrands || []).some((b) => b.id === s.brandId && (b.name || '').toLowerCase().includes(search)));
     return matchBrand && matchDistrict && matchDietary && matchSearch;
   });
+
+  // 排序邏輯
+  if (sort === 'name') {
+    filtered.sort((a, b) => a.name.localeCompare(b.name, 'zh-HK'));
+  } else if (sort === 'district') {
+    filtered.sort((a, b) => a.district.localeCompare(b.district, 'zh-HK'));
+  } else if (sort === 'brand') {
+    filtered.sort((a, b) => {
+      const brandA = a.brandId || '';
+      const brandB = b.brandId || '';
+      return brandA.localeCompare(brandB, 'zh-HK');
+    });
+  }
+
+  return filtered;
 }
 
 // 渲染品牌牆
 function renderBrandWall() {
   if (!brandGrid) return;
   brandGrid.innerHTML = '';
-  BRANDS_FOR_WALL.forEach((b) => brandGrid.appendChild(renderBrandCard(b)));
+  const brandsForWall = globalBrands.filter((b) => b.storeCount >= 3);
+  brandsForWall.forEach((b) => brandGrid.appendChild(renderBrandCard(b)));
 }
 
 // 渲染門店列表
 function renderStoreList() {
-  let filtered = getFilteredStores();
-  const sort = sortBy ? sortBy.value : 'name';
-  if (sort === 'name') {
-    filtered = filtered.slice().sort((a, b) => (a.name || '').localeCompare(b.name || '', 'zh-HK'));
-  } else if (sort === 'district') {
-    filtered = filtered.slice().sort((a, b) => (a.district || '').localeCompare(b.district || '', 'zh-HK'));
-  } else if (sort === 'brand') {
-    const getBrandName = (s) => {
-      if (!s.brandId) return '';
-      const b = (BRANDS || []).find((x) => x.id === s.brandId);
-      return (b && b.name) ? b.name : s.brandId;
-    };
-    filtered = filtered.slice().sort((a, b) => getBrandName(a).localeCompare(getBrandName(b), 'zh-HK'));
-  }
-  restaurantCount.textContent = `共 ${filtered.length} 間門店`;
+  const filtered = getFilteredStores();
+  if (restaurantCount) restaurantCount.textContent = `共 ${filtered.length} 間門店`;
 
   restaurantList.innerHTML = '';
   if (filtered.length === 0) {
@@ -276,6 +283,131 @@ function renderStoreList() {
   }
   filtered.forEach((s) => restaurantList.appendChild(renderStoreCard(s)));
 }
+
+// === 動態數據載入邏輯 ===
+
+/**
+ * 根據門店數據自動聚合生成品牌數據
+ * @param {Array} stores - 門店列表
+ */
+function generateBrandsFromStores(stores) {
+  const brandMap = {};
+
+  stores.forEach(store => {
+    if (!store.brandId) return;
+    
+    if (!brandMap[store.brandId]) {
+      brandMap[store.brandId] = {
+        id: store.brandId,
+        name: store.brandId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), // 簡單格式化
+        storeCount: 0,
+        website: store.website,
+        foodpanda: store.foodpanda,
+        products: store.products || [],
+        dietary: store.dietary || []
+      };
+    }
+    
+    const brand = brandMap[store.brandId];
+    brand.storeCount++;
+    // 合併產品（去重）
+    if (store.products) {
+      brand.products = [...new Set([...brand.products, ...store.products])];
+    }
+    // 合併飲食標籤（去重）
+    if (store.dietary) {
+      brand.dietary = [...new Set([...brand.dietary, ...store.dietary])];
+    }
+    // 如果門店有官網，優先用
+    if (store.website && !brand.website) brand.website = store.website;
+  });
+
+  // 嘗試匹配舊的 BRANDS 數據以獲取更準確的品牌名稱
+  const oldBrands = typeof BRANDS !== 'undefined' ? BRANDS : [];
+  
+  return Object.values(brandMap).map(b => {
+    const existing = oldBrands.find(ob => ob.id === b.id);
+    if (existing) {
+      return { ...b, name: existing.name }; // 保留準確的品牌名
+    }
+    return b;
+  });
+}
+
+/**
+ * 解析 CSV 字符串為對象數組
+ * @param {string} csv - CSV 內容
+ */
+function parseCSV(csv) {
+  return new Promise((resolve, reject) => {
+    if (typeof Papa === 'undefined') {
+      reject(new Error('PapaParse library not found'));
+      return;
+    }
+    
+    Papa.parse(csv, {
+      header: true,
+      skipEmptyLines: true,
+      complete: function(results) {
+        if (results.errors && results.errors.length > 0) {
+          console.warn('CSV Parse Errors:', results.errors);
+        }
+        resolve(results.data);
+      },
+      error: function(err) {
+        reject(err);
+      }
+    });
+  });
+}
+
+/**
+ * 從 Google Sheets 獲取數據
+ */
+async function loadRemoteData() {
+  if (typeof GOOGLE_SHEET_CSV_URL === 'undefined' || !GOOGLE_SHEET_CSV_URL) {
+    console.log('No Google Sheet URL configured. Using local data.');
+    return;
+  }
+
+  try {
+    console.log('Fetching remote data from Google Sheets...');
+    const response = await fetch(GOOGLE_SHEET_CSV_URL);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    
+    const csvText = await response.text();
+    const rawData = await parseCSV(csvText);
+    
+    // 轉換數據格式（CSV 讀出來都是字符串，需要處理數組字段）
+    const remoteStores = rawData.map(row => ({
+      ...row,
+      id: row.id || Math.random().toString(36).substr(2, 9),
+      products: row.products ? row.products.split(',').map(s => s.trim()) : [],
+      dietary: row.dietary ? row.dietary.split(',').map(s => s.trim()) : [],
+      // 確保必要字段存在
+      name: row.name || 'Unknown Store',
+      district: row.district || 'Other',
+      address: row.address || '',
+    }));
+
+    if (remoteStores.length > 0) {
+      console.log(`Loaded ${remoteStores.length} stores from remote.`);
+      globalStores = remoteStores;
+      
+      // 自動重新生成品牌數據
+      globalBrands = generateBrandsFromStores(remoteStores);
+      
+      // 重新渲染頁面
+      initBrandFilter();
+      renderBrandWall();
+      renderStoreList();
+    }
+  } catch (err) {
+    console.error('Failed to load remote data:', err);
+    console.log('Falling back to local data.');
+  }
+}
+
 
 // 事件監聽
 if (brandFilter) brandFilter.addEventListener('change', renderStoreList);
@@ -302,3 +434,6 @@ initBrandFilter();
 initDietaryChips();
 renderBrandWall();
 renderStoreList();
+
+// 嘗試載入遠程數據
+loadRemoteData();

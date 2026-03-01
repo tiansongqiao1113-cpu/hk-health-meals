@@ -6,6 +6,10 @@
  * 請編輯 data/ 目錄下的 JSON 文件，然後運行 'python3 scripts/build-data.py' 更新。
  */
 
+// 🌐 Google Sheets 配置（填入 CSV 連結即可啟用動態數據）
+// 範例： "https://docs.google.com/spreadsheets/d/e/2PACX-xxxx/pub?gid=0&single=true&output=csv"
+const GOOGLE_SHEET_CSV_URL = "";
+
 // 特殊飲食需求選項（供篩選用）
 const DIETARY_OPTIONS = [
   {

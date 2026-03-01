@@ -1,0 +1,14 @@
+# Netlify 配置文件
+# 文檔: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # 構建命令：在部署前重新生成數據文件
+  command = "npm run build"
+  
+  # 發佈目錄：我們是純靜態網站，直接發佈根目錄
+  publish = "."
+
+[dev]
+  # 本地開發服務器命令
+  command = "python3 -m http.server 8000"
+  port = 8000
