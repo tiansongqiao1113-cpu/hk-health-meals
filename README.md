@@ -1,59 +1,56 @@
-# 香港健康餐收錄
+# 🥗 香港健康餐收錄 (HK Health Meals)
 
-收錄香港各區健康餐商家，方便用戶按地區選擇並透過官網、Foodpanda、Keeta 下單。資料來源：Healthy HKG、Green Queen 2025 等，經收集表核對。
+收錄香港各區健康餐商家，方便用戶按地區選擇並透過官網、Foodpanda、Keeta 下單。
 
-## 數據維護流程
+🔗 **在線演示**：[https://hk-health-meals.netlify.app](https://hk-health-meals.netlify.app) (示例)
 
-- **data-collection.json**：完整收集表，含來源與待核對項目。
-- **data.js**：網站實際顯示的列表，由收集表整理後同步。
-- 核對步驟（取得直達連結、營業時間、地址）見 **VERIFICATION.md**。
+## 🚀 快速開始
 
-## 功能
+1.  **下載代碼**
+    ```bash
+    git clone https://github.com/你的用戶名/hk-health-meals.git
+    cd hk-health-meals
+    ```
 
-- **地區篩選**：中環、金鐘、灣仔、銅鑼灣、尖沙咀、旺角、油麻地、觀塘、將軍澳、沙田、荃灣
-- **關鍵字搜尋**：商家名稱、地址、產品
-- **商家資訊**：地址、營業時間、主要產品
-- **下單連結**：官網、Foodpanda、Keeta
-- **掃碼下單**：點擊「掃碼下單」可顯示 QR 碼，用手機掃描即可下單
+2.  **本地預覽**
+    無需安裝任何依賴，直接使用 Python 啟動：
+    ```bash
+    # Mac/Linux
+    python3 -m http.server 8000
+    
+    # Windows
+    python -m http.server 8000
+    ```
+    然後打開瀏覽器訪問 [http://localhost:8000](http://localhost:8000)。
 
-## 使用方式
+## 🌐 如何發佈到網上？
 
-1. 直接用瀏覽器打開 `index.html`
-2. 或使用本地伺服器（如 `python -m http.server 8000`）在 `http://localhost:8000` 預覽
+只需三步，無需寫代碼：
 
-## 添加商家
+1.  打開 [Netlify Drop](https://app.netlify.com/drop)。
+2.  將本項目的文件夾直接拖進去。
+3.  獲得你的專屬網址，發送給朋友即可！
 
-編輯 `data.js`，在 `RESTAURANTS` 陣列中新增物件：
+詳細教程請見 [DEPLOY.md](DEPLOY.md)。
 
-```javascript
-{
-  id: 13,
-  name: "商家名稱",
-  district: "地區",
-  address: "完整地址",
-  hours: "營業時間",
-  products: ["產品1", "產品2"],
-  website: "https://官網連結",  // 無則填 null
-  foodpanda: "https://www.foodpanda.hk/restaurant/xxx",
-  keeta: "https://www.keeta.com.hk",
-}
-```
+## 🛠 數據維護
 
-## 爬取數據
+本項目採用數據分離架構，所有餐廳數據位於 `data/` 目錄。
+如果想新增餐廳，請查看 [MAINTENANCE.md](MAINTENANCE.md)。
 
-專案內含 `scraper/` 目錄，可用 Playwright 爬取 Foodpanda、OpenRice：
+簡單來說：
+1. 編輯 `data/stores.json`
+2. 運行 `python3 scripts/build-data.py`
+3. 提交代碼
 
-```bash
-cd scraper
-npm install
-npx playwright install chromium
-npm run scrape:foodpanda   # 健康餐分類
-npm run scrape:openrice   # 素食/沙律/健康
-npm run merge             # 轉成 data.js 格式
-```
+## 📊 功能亮點
 
-詳見 `scraper/README.md`。
+- **雙層展示**：首頁展示熱門品牌牆 + 詳細門店列表
+- **多維篩選**：支持按地區、品牌、特殊飲食需求（純素、生酮、無麩質等）篩選
+- **智能搜索**：支持搜索餐廳名、地址、產品關鍵字
+- **一鍵下單**：集成 Foodpanda / Keeta / 官網直達鏈接
+- **掃碼點餐**：自帶 QR Code 生成器，方便手機快速訪問
 
-## 部署
+## 📄 版權
 
-可部署至 GitHub Pages、Vercel、Netlify 等靜態託管服務。
+MIT License. 歡迎 Fork 和提交 PR！
